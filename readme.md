@@ -5,6 +5,7 @@ Autonomous vehicles depend on multimodal sensing to achieve accurate environment
 
 ### Video for SAM3 detection and PV-RCNN only
 ![SAM3 and PV-RCNN only](./videos/merged_sam3_openpcdet.gif)
+
 Camera-based perception degrades significantly under challenging conditions such as low-light or nighttime environments, glare, shadows, snow, and dust, which directly reduces segmentation accuracy and reliability. Moreover, when extracting LiDAR points corresponding to segmented vehicles, the sparsity of the point cloud makes it difficult to reliably infer vehicle orientation using LiDAR alone. In 3D point cloud–based detection, false positives occur frequently; while the method can often estimate object orientation accurately, it tends to misclassify or merge targets when multiple objects are spatially close.
 
 ## Why fuse RGB and LiDAR info?
@@ -27,6 +28,7 @@ Late fusion keeps sensor processing streams seperate and combines their high-lev
 
 ### Video for Early Fusion and Late Fusion
 ![Video for Early Fusion and Late Fusion](./videos/merged_early_late_fusion.gif)
+
 In early fusion, failures in camera-based perception propagate directly to the fused representation: if the camera does not detect distant pedestrians or cyclists, these objects are not marked even when corresponding LiDAR points are present. In contrast, late fusion combines high-level outputs from each modality, enabling the suppression of false detections by discarding LiDAR-based detections with low confidence scores and no associated segmentation masks, thereby improving overall detection accuracy. Additionally, because PV-RCNN is not trained to recognize certain object categories such as trains, it fails to detect them using LiDAR alone. However, by integrating camera-based segmentation with LiDAR point clouds in a late-fusion framework, such previously unseen objects can still be successfully identified.
 
 ### Next steps
